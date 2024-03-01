@@ -13,26 +13,34 @@
 //         }
 //     }
 // }
+class myNode {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+}
 
 class LinkedList {
-    constructor(value){
+    constructor(value) {
         // When creating the linked list, the head is the only value
-        this.head = {
-            value: value,
-            // head will point to null
-            next: null,
-        }
+        // this.head = {
+        //     value: value,
+        //     // head will point to null
+        //     next: null,
+        // }
+        this.head = new myNode(value);
         // at the start, the head is also the tail
         this.tail = this.head;
         this.length = 1;
     }
     append(value) {
         // Add in the given value to the end of the linked list
-        let node = {
-            value: value,
-            next: null,
-        }
+        // let node = {
+        //     value: value,
+        //     next: null,
+        // }
         // set the next value of the tail to be the new node instead of null
+        let node = new myNode(value);
         this.tail.next = node;
         // make the new node pointing to null the tail
         this.tail = node;
@@ -44,17 +52,53 @@ class LinkedList {
 
     prepend(value) {
         // Add a value to the front of the linked list
-        let newHead = {
-            value: value,
-            // next: this.head,
-            next: null,
-        };
+        // let newHead = {
+        //     value: value,
+        //     // next: this.head,
+        //     next: null,
+        // };
+        let newHead = new myNode(value);
         newHead.next = this.head;
         this.head = newHead;
 
         // increment the length
         ++this.length;
         return this;
+    }
+
+    insert(index, value) {
+        // check for 0 because we are using index - 1 so we won't be able to access the prvious nodes to the head
+        // handle adding to index 0 the same as replacing the head
+        if (index === 0) {
+            this.prepend(value);
+        } else if (index >= this.length) {
+            // If the input index is larger than or equal to the length of the linked list, just append the value to the linked list
+            console.log("larger than index");
+            this.append(value);
+        } else {
+            // create the new node to insert
+            let newNode = new myNode(value);
+            let previousNode = this.head;
+            let nextNode;
+            // loop through the nodes starting from the head until right before the index value
+            for (let i = 0; i < index - 1; i++) {
+                previousNode = previousNode.next;
+            }
+            // store the node at the index value as nextNode
+            // console.log(previousNode.value);
+            nextNode = previousNode.next;
+            // console.log(nextNode.value);
+
+            // The new node will go between previous and next 
+            // so previous will point to the new node
+            // and the nex node will point to the nextNode
+            previousNode.next = newNode;
+            newNode.next = nextNode;
+
+            // increment the length
+            ++this.length;
+            return this;
+        }
     }
 
     show_values() {
@@ -69,6 +113,7 @@ class LinkedList {
             currentNode = currentNode.next;
         }
         console.log(values);
+        return values;
     }
 }
 const myLinkedList = new LinkedList(10);
@@ -80,7 +125,18 @@ myLinkedList.prepend(7);
 // console.log(myLinkedList.tail);
 // console.log(myLinkedList.length);
 myLinkedList.prepend(1);
-myLinkedList.append("1");
+myLinkedList.append("hello");
+myLinkedList.show_values();
+
+myLinkedList.insert(0, 'a');
+myLinkedList.show_values();
+myLinkedList.insert(2, 'b');
+myLinkedList.show_values();
+myLinkedList.insert(myLinkedList.length, 'c');
+myLinkedList.show_values();
+myLinkedList.insert(myLinkedList.length + 1, 'd');
+// myLinkedList.prepend('a');
+// console.log(myLinkedList);
 myLinkedList.show_values();
 
 
