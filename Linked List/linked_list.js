@@ -32,25 +32,58 @@ class LinkedList {
             value: value,
             next: null,
         }
+        // set the next value of the tail to be the new node instead of null
         this.tail.next = node;
+        // make the new node pointing to null the tail
         this.tail = node;
-        // console.log(`tail is ${this.tail.value}`);
-        // delete this.tail.next;
-        // this.tail.next = node;
-        // node.next = null;
 
-        // increase the length 
+        // increment the length
         ++this.length;
-        return this
+        return this;
     }
 
+    prepend(value) {
+        // Add a value to the front of the linked list
+        let newHead = {
+            value: value,
+            // next: this.head,
+            next: null,
+        };
+        newHead.next = this.head;
+        this.head = newHead;
+
+        // increment the length
+        ++this.length;
+        return this;
+    }
+
+    show_values() {
+        // iterate through the linked list and give the values for each node
+        let currentNode = this.head;
+        let values = [];
+        // for (let i = 0; i < this.length; i++){
+        // Keep looping until we reach the null value after the tail
+        while (currentNode !== null) {
+            // every loop move to the next item
+            values.push(currentNode.value);
+            currentNode = currentNode.next;
+        }
+        console.log(values);
+    }
 }
 const myLinkedList = new LinkedList(10);
 myLinkedList.append(5);
 myLinkedList.append(16);
-console.log(myLinkedList);
-console.log(myLinkedList.head);
-console.log(myLinkedList.length);
+myLinkedList.prepend(7);
+// console.log(myLinkedList);
+// console.log(myLinkedList.head);
+// console.log(myLinkedList.tail);
+// console.log(myLinkedList.length);
+myLinkedList.prepend(1);
+myLinkedList.append("1");
+myLinkedList.show_values();
+
+
 // // Creating references and pointers
 // let obj1 = {a: true};
 // // obj2 = obj1 makes obj2 a reference to object 1

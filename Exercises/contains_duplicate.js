@@ -12,6 +12,8 @@
 /**
  * @param {number[]} nums
  * @return {boolean}
+ * Time Complexity of O(n)
+ * Space Complexity of O(n)
  */
 var containsDuplicate = function(nums) {
     // Create the new empty hash table
@@ -24,7 +26,7 @@ var containsDuplicate = function(nums) {
             return true;
         } else {
             // If the current number isn't already part of the hash table add it
-            seen[nums[i]] = i;
+            seen[current_num] = i;
         }
     }
     console.log(seen);
